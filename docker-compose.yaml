@@ -1,0 +1,28 @@
+version: '3.7'
+
+services:
+    proxy:
+        image: openresty/openresty:latest
+        container_name: proxy
+        ports:
+            - "80:80"
+        volumes:
+            - "./conf:/etc/nginx/conf.d"
+
+    server_a:
+        container_name: log_server_a
+        build:
+            context: .
+        environment:
+            - SERVER=a
+        expose: 
+            - "80"
+
+    server_b:
+        container_name: log_server_b
+        build:
+            context: .
+        environment:
+            - SERVER=b
+        expose: 
+            - "80"
